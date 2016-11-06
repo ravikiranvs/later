@@ -23,14 +23,12 @@ class CsvDataBase {
 
     findOrCreate(profile, callback) {
         var userArr = this.data.filter(function(value) {
-            return value.id == profile.id
+            return value.redditId == profile.redditId || value.twitterId == profile.twitterId || value.imgurId == profile.imgurId
         })
 
         if (userArr.length == 0) {
-            this.data.push({
-                id: profile.id
-            })
-            save(this.filePath, this.data, function(err){
+            this.data.push(profile)
+            save(this.filePath, this.data, function(err) {
                 callback(err, null)
             })
         }
@@ -38,6 +36,21 @@ class CsvDataBase {
             callback(null, userArr[0])
         }
     }
+
+    find(id, callback) {
+        var userArr = this.data.filter(function(value) {
+            return value.redditId == id || value.twitterId == id || value.imgurId == id
+        })
+
+        if (userArr.length == 0) {
+            callback(new Error('No user found.'), null)
+        }
+        else {
+            callback(null, userArr[0])
+        }
+    }
+
+
 }
 
 function read(filePath, callback) {
