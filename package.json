@@ -1,0 +1,21 @@
+{
+  "name": "later",
+  "version": "1.0.0",
+  "description": "See what you had saved to read later.",
+  "main": "server/app.js",
+  "scripts": {
+    "debug": "node server/app.js",
+    "test": "npm run test"
+  },
+  "keywords": [
+    "reddit",
+    "twitter",
+    "imgur"
+  ],
+  "author": "Kiran",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "passport": "^0.3.2"
+  }
+}
