@@ -1,20 +1,32 @@
 var express = require('express')
 var app = express()
+var cookieParser = require('cookie-parser')
+var bodyParser = require('body-parser')
+var session = require('express-session')
+var passport = require('passport')
 
-app.configure(function() {
-  app.use(express.static('public'));
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.session({ secret: 'SECRETKEY' }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-});
+app.use(express.static('public'));
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(session({ secret: 'SECRETKEY' }));
+app.use(passport.initialize());
+app.use(passport.session());
+//app.use(app.router);
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
+var redditAuth = require('./auth/reddit')
+redditAuth(app, passport, {
+    REDDIT_CONSUMER_KEY: 'username',
+    REDDIT_CONSUMER_SECRET: 'password'
+}, {
+        findOrCreate: function (id, callback) {
+            callback(null, { user })
+        }
+    })
+
+app.get('/api', function (req, res) {
+    res.send('Hello World!')
 })
 
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+    console.log('Example app listening on port 3000!')
 })
