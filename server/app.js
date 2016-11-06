@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var session = require('express-session')
 var passport = require('passport')
+var UserStore = require('../database/csv')
 
 app.use(express.static('public'));
 app.use(cookieParser());
@@ -14,19 +15,16 @@ app.use(passport.session());
 //app.use(app.router);
 
 var redditAuth = require('./auth/reddit')
+
 redditAuth(app, passport, {
     REDDIT_CONSUMER_KEY: 'username',
     REDDIT_CONSUMER_SECRET: 'password'
-}, {
-        findOrCreate: function (id, callback) {
-            callback(null, { user })
-        }
-    })
+}, new UserStore())
 
-app.get('/api', function (req, res) {
+app.get('/api', function(req, res) {
     res.send('Hello World!')
 })
 
-app.listen(3000, function () {
+app.listen(3000, function() {
     console.log('Example app listening on port 3000!')
 })

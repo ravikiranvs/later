@@ -6,7 +6,7 @@ const redditPassport = function (passport, authConfig, userStore) {
         callbackURL: "http://0.0.0.0:3000/auth/reddit/callback"
     },
         function (accessToken, refreshToken, profile, done) {
-            userStore.findOrCreate(profile.id, function (err, user) {
+            userStore.findOrCreate(profile, function (err, user) {
                 return done(err, user);
             });
         }
