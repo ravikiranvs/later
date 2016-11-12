@@ -8,12 +8,18 @@ const setup = function (app) {
 
     var authConfig = {
         REDDIT_CONSUMER_KEY: 'goBGb_8I_vj33A',
-        REDDIT_CONSUMER_SECRET: 'DT8pB9nidwZnJjsMA1vGBgUeNUU'
+        REDDIT_CONSUMER_SECRET: 'DT8pB9nidwZnJjsMA1vGBgUeNUU',
+        TWITTER_CONSUMER_KEY: 'KEY',
+        TWITTER_CONSUMER_SECRET: 'SECRET',
+        IMGUR_CONSUMER_KEY: 'KEY',
+        IMGUR_CONSUMER_SECRET: 'SECRET'
     }
 
     var userStore = new UserStore()
 
     require('./reddit')(app, passport, authConfig, userStore)
+    require('./twitter')(app, passport, authConfig, userStore)
+    require('./imgur')(app, passport, authConfig, userStore)
 
     passport.serializeUser(function (user, done) {
         done(null, user.redditId)
