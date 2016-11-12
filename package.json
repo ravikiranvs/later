@@ -5,7 +5,7 @@
   "main": "server/app.js",
   "scripts": {
     "debug": "node server/app.js",
-    "test": "npm run test"
+    "test": "ava"
   },
   "keywords": [
     "reddit",
@@ -25,5 +25,8 @@
     "passport-oauth": "^1.0.0",
     "passport-reddit": "^0.2.4",
     "passport-twitter": "^1.0.4"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0"
   }
 }

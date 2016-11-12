@@ -1,5 +1,5 @@
 var passport = require('passport')
-var UserStore = require('../../database/csv')
+var DBCreator = require('../../database')
 
 const setup = function (app) {
     app.use(passport.initialize())
@@ -15,21 +15,23 @@ const setup = function (app) {
         IMGUR_CONSUMER_SECRET: 'SECRET'
     }
 
-    var userStore = new UserStore()
+    DBCreator('csv', 'users', (x, y) => {
+        return x.redditId == y.redditId || x.twitterId == y.twitterId || x.imgurId == y.imgurId
+    }, (err, userStore) => {
+        require('./reddit')(app, passport, authConfig, userStore)
+        require('./twitter')(app, passport, authConfig, userStore)
+        require('./imgur')(app, passport, authConfig, userStore)
 
-    require('./reddit')(app, passport, authConfig, userStore)
-    require('./twitter')(app, passport, authConfig, userStore)
-    require('./imgur')(app, passport, authConfig, userStore)
-
-    passport.serializeUser(function (user, done) {
-        done(null, user.redditId)
-    })
-
-    passport.deserializeUser(function (id, done) {
-        userStore.find(id, function (err, user) {
-            done(err, user)
+        passport.serializeUser(function (user, done) {
+            done(null, user.redditId)
         })
-    });
+
+        passport.deserializeUser(function (id, done) {
+            userStore.find(id, function (err, user) {
+                done(err, user)
+            })
+        })
+    })
 }
 
 module.exports = setup
