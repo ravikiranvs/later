@@ -1,10 +1,12 @@
 class DataBase {
     constructor(store, initData, comprarer) {
         this.store = store
+        this.data = initData
+        this.comprarer = comprarer
     }
 
     findOrCreate(value, callback) {
-        var userArr = this.data.filter(function(element) {
+        var userArr = this.data.filter((element) => {
             return !this.comprarer(value, element)
         })
 
@@ -12,7 +14,7 @@ class DataBase {
 
         this.data = userArr
 
-        this.save()
+        this.save(callback)
     }
 
     find(value, callback) {

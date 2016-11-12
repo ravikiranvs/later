@@ -5,7 +5,7 @@
   "main": "server/app.js",
   "scripts": {
     "debug": "node server/app.js",
-    "test": "ava"
+    "test": "ava --verbose"
   },
   "keywords": [
     "reddit",
