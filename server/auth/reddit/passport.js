@@ -18,7 +18,7 @@ const redditPassport = function (passport, authConfig, userStore) {
             }
             userStore.findOrCreate(user, function (err, user) {
                 return done(err, user);
-            });
+            })
         }
     ));
 }

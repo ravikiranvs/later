@@ -17,7 +17,7 @@ const imgurPassport = function (passport, authConfig, userStore) {
                 user = Object.assign({}, req.user, user)
             }
             userStore.findOrCreate(user, function (err, user) {
-                return done(err, user);
+                return done(err, user)
             });
         }
     ));

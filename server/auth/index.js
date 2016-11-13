@@ -23,11 +23,12 @@ const setup = function (app) {
         require('./imgur')(app, passport, authConfig, userStore)
 
         passport.serializeUser(function (user, done) {
-            done(null, user.redditId)
+            done(null, JSON.stringify(user))
         })
 
-        passport.deserializeUser(function (id, done) {
-            userStore.find(id, function (err, user) {
+        passport.deserializeUser(function (userJson, done) {
+            var user = JSON.parse(userJson)
+            userStore.find(user, function (err, user) {
                 done(err, user)
             })
         })
