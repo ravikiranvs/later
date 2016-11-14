@@ -23,4 +23,4 @@ const imgurPassport = function (passport, authConfig, userStore) {
     ));
 }
 
-module.exports = twitterPassport
+module.exports = imgurPassport

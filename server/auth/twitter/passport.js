@@ -4,6 +4,8 @@ const twitterPassport = function (passport, authConfig, userStore) {
         clientID: authConfig.TWITTER_CONSUMER_KEY,
         clientSecret: authConfig.TWITTER_CONSUMER_SECRET,
         callbackURL: 'http://0.0.0.0:3000/auth/twitter/callback',
+        consumerKey: authConfig.TWITTER_CONSUMER_KEY,
+        consumerSecret: authConfig.TWITTER_CONSUMER_SECRET,
         passReqToCallback: true
     },
         function (req, accessToken, refreshToken, profile, done) {

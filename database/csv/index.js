@@ -31,10 +31,10 @@ class CsvDataBase {
     }
 
     save(data, callback) {
-        csvHelper.json2csv(data, function (err, csv) {
+        csvHelper.json2csv(data, (err, csv) => {
             if (err) callback(err)
             else {
-                fs.writeFile(filePath, csv, function (err) {
+                fs.writeFile(this.filePath, csv, function (err) {
                     if (err) callback(err)
                 })
             }

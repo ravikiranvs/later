@@ -1,7 +1,7 @@
 var passport = require('passport')
 var DBCreator = require('../../database')
 
-const setup = function (app) {
+const setup = function(app) {
     app.use(passport.initialize())
 
     app.use(passport.session());
@@ -18,20 +18,23 @@ const setup = function (app) {
     DBCreator('csv', 'users', (x, y) => {
         return x.redditId == y.redditId || x.twitterId == y.twitterId || x.imgurId == y.imgurId
     }, (err, userStore) => {
-        require('./reddit')(app, passport, authConfig, userStore)
-        require('./twitter')(app, passport, authConfig, userStore)
-        require('./imgur')(app, passport, authConfig, userStore)
+        if (err) console.error(err)
+        else {
+            require('./reddit')(app, passport, authConfig, userStore)
+            require('./twitter')(app, passport, authConfig, userStore)
+            require('./imgur')(app, passport, authConfig, userStore)
 
-        passport.serializeUser(function (user, done) {
-            done(null, JSON.stringify(user))
-        })
-
-        passport.deserializeUser(function (userJson, done) {
-            var user = JSON.parse(userJson)
-            userStore.find(user, function (err, user) {
-                done(err, user)
+            passport.serializeUser(function(user, done) {
+                done(null, JSON.stringify(user))
             })
-        })
+
+            passport.deserializeUser(function(userJson, done) {
+                var user = JSON.parse(userJson)
+                userStore.find(user, function(err, user) {
+                    done(err, user)
+                })
+            })
+        }
     })
 }
 
