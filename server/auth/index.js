@@ -9,10 +9,10 @@ const setup = function (app) {
     var authConfig = {
         REDDIT_CONSUMER_KEY: 'goBGb_8I_vj33A',
         REDDIT_CONSUMER_SECRET: 'DT8pB9nidwZnJjsMA1vGBgUeNUU',
-        TWITTER_CONSUMER_KEY: 'KEY',
-        TWITTER_CONSUMER_SECRET: 'SECRET',
-        IMGUR_CONSUMER_KEY: 'KEY',
-        IMGUR_CONSUMER_SECRET: 'SECRET'
+        TWITTER_CONSUMER_KEY: 'NnIrMi7HQ15ur4b1PGe5a9jtv',
+        TWITTER_CONSUMER_SECRET: '8guyo7A0io2TUzejlIpih04ZYpw794KECwnZ7GnUiAU8DqopeF',
+        IMGUR_CONSUMER_KEY: '437ffc187a00ff3',
+        IMGUR_CONSUMER_SECRET: '4d3bb8d78f805d6c842741bf88c706cf4d21f351'
     }
 
     DBCreator('csv', 'users', (x, y) => {
